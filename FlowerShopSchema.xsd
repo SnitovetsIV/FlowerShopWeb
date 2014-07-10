@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:tns="http://www.example.com/FlowerShop"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.example.com/FlowerShop"
+        elementFormDefault="qualified">
+
+    <element name="flower" type="tns:flower-type" abstract="true"/>
+    <element name="artificial-flower" type="tns:artificial-flower-type" substitutionGroup="tns:flower"/>
+    <element name="natural-flower" type="tns:natural-flower-type" substitutionGroup="tns:flower"/>
+    <element name="cut-flower" type="tns:cut-flower-type" substitutionGroup="tns:natural-flower"/>
+
+    <element name="flower-packaging" type="tns:flower-packaging-type" abstract="true"/>
+    <element name="flower-basket" type="tns:flower-basket-type" substitutionGroup="tns:flower-packaging"/>
+    <element name="packaging-paper" type="tns:packaging-paper-type" substitutionGroup="tns:flower-packaging"/>
+
+    <element name="flower-composition">
+        <complexType>
+            <sequence>
+                <element ref="tns:flower" minOccurs="1" maxOccurs="unbounded"/>
+                <element ref="tns:flower-packaging" minOccurs="0" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <complexType name="flower-packaging-type">
+        <sequence>
+            <element name="price" type="tns:price-type"/>
+            <element name="material" type="string"/>
+        </sequence>
+        <attribute name="id" type="tns:bouquet-component-id" use="required"/>
+    </complexType>
+
+    <complexType name="flower-basket-type">
+        <complexContent>
+            <extension base="tns:flower-packaging-type">
+                <sequence>
+                    <element name="height" type="positiveInteger"/>
+                    <element name="diameter" type="positiveInteger"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="packaging-paper-type">
+        <complexContent>
+            <extension base="tns:flower-packaging-type">
+                <sequence>
+                    <element name="length" type="positiveInteger"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="flower-type">
+        <sequence>
+            <element name="price" type="tns:price-type"/>
+            <element name="color" type="tns:color-type"/>
+            <element name="stem-length" type="positiveInteger"/>
+        </sequence>
+        <attribute name="id" type="tns:bouquet-component-id" use="required"/>
+    </complexType>
+
+    <complexType name="artificial-flower-type">
+        <complexContent>
+            <extension base="tns:flower-type">
+                <sequence>
+                    <element name="material" type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="natural-flower-type">
+        <complexContent>
+            <extension base="tns:flower-type">
+                <sequence>
+                    <element name="reproduction" type="tns:reproduction-type"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="cut-flower-type">
+        <complexContent>
+            <extension base="tns:natural-flower-type">
+                <sequence>
+                    <element name="storage-time" type="positiveInteger"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <simpleType name="reproduction-type">
+        <restriction base="string">
+            <enumeration value="seed"></enumeration>
+            <enumeration value="cutting"></enumeration>
+            <enumeration value="tuber"></enumeration>
+            <enumeration value="bulb"></enumeration>
+            <enumeration value="layering"></enumeration>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="bouquet-component-id">
+        <restriction base="ID">
+            <pattern value="S[0-9]{1,3}"></pattern>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="price-type">
+        <restriction base="double">
+            <minInclusive value="0.0"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="color-type">
+        <restriction base="string">
+            <enumeration value="blue"></enumeration>
+            <enumeration value="yellow"></enumeration>
+            <enumeration value="red"></enumeration>
+            <enumeration value="green"></enumeration>
+        </restriction>
+    </simpleType>
+
+</schema>

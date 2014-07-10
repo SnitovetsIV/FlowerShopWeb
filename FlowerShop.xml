@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flower-composition
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.example.com/FlowerShop"
+        xsi:schemaLocation="http://www.example.com/FlowerShop FlowerShopSchema.xsd">
+
+    <cut-flower id="S1">
+        <price>1.1</price>
+        <color>red</color>
+        <stem-length>12</stem-length>
+        <reproduction>seed</reproduction>
+        <storage-time>4</storage-time>
+    </cut-flower>
+
+    <cut-flower id="S2">
+        <price>2.1</price>
+        <color>yellow</color>
+        <stem-length>13</stem-length>
+        <reproduction>tuber</reproduction>
+        <storage-time>5</storage-time>
+    </cut-flower>
+
+    <natural-flower id="S3">
+        <price>3.1</price>
+        <color>blue</color>
+        <stem-length>10</stem-length>
+        <reproduction>tuber</reproduction>
+    </natural-flower>
+
+    <natural-flower id="S4">
+        <price>4.1</price>
+        <color>green</color>
+        <stem-length>6</stem-length>
+        <reproduction>layering</reproduction>
+    </natural-flower>
+
+    <artificial-flower id="S5">
+        <price>3.1</price>
+        <color>green</color>
+        <stem-length>6</stem-length>
+        <material>plastic</material>
+    </artificial-flower>
+
+    <artificial-flower id="S6">
+        <price>6.1</price>
+        <color>green</color>
+        <stem-length>6</stem-length>
+        <material>plastic</material>
+    </artificial-flower>
+
+    <packaging-paper id="S7">
+        <price>2.1</price>
+        <material>paper</material>
+        <length>45</length>
+    </packaging-paper>
+
+</flower-composition>
