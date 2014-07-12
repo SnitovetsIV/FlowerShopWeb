@@ -2,8 +2,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <fmt:setLocale value="${locale}"/>
-<fmt:setBundle basename="properties.labels" var="bundleLabel" scope="session"/>
-<fmt:setBundle basename="properties.config" var="bundleConf" scope="session"/>
+<fmt:setBundle basename="resources.labels" var="bundleLabel" scope="session"/>
+<fmt:setBundle basename="resources.config" var="bundleConf" scope="session"/>
+<fmt:setBundle basename="resources.messages" var="bundleMess" scope="session"/>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

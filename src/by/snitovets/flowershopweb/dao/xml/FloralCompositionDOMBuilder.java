@@ -19,6 +19,8 @@ import java.awt.Color;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Scanner;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Илья on 06.07.2014.
@@ -26,15 +28,31 @@ import java.util.Scanner;
 public class FloralCompositionDOMBuilder extends AbstractFloralCompositionBuilder {
 
     private static final Logger LOG = Logger.getLogger(FloralCompositionDOMBuilder.class);
+    private static final Lock lock = new ReentrantLock();
+    private static FloralCompositionDOMBuilder instance;
     private DocumentBuilder documentBuilder;
 
-    public FloralCompositionDOMBuilder() throws DAOException {
+    private FloralCompositionDOMBuilder() throws DAOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             documentBuilder = factory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             throw new DAOException("Parser configuration error. ", e);
         }
+    }
+
+    public static FloralCompositionDOMBuilder getInstance() throws DAOException {
+        if (null == instance) {
+            lock.lock();
+            try {
+                if (null == instance) {
+                    instance = new FloralCompositionDOMBuilder();
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
+        return instance;
     }
 
     @Override

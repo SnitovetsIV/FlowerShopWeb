@@ -13,6 +13,7 @@ public class ConfigurationManager {
     public static final String XSD_FILE_PATH = "config.dao.xsd.path";
     public static final String ERROR_PAGE_PATH = "config.page.error";
     public static final String INDEX_PAGE_PATH = "config.page.index";
+    public static final String SHOW_PAGE_PATH = "config.page.show";
     public static final String DEFAULT_LANGUAGE = "config.default.language";
     private static final String BUNDLE_NAME = "resources.config";
     private static ConfigurationManager instance;

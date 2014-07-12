@@ -5,10 +5,10 @@
          version="3.1">
 
     <servlet>
-        <description></description>
+        <description/>
         <display-name>Controller</display-name>
         <servlet-name>Controller</servlet-name>
-        <servlet-class>by.snitovets.flowershopweb.controller.Controller</servlet-class>
+        <servlet-class>by.snitovets.flowershopweb.controller.FlowerShopController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>

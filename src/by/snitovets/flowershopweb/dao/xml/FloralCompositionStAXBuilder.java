@@ -18,6 +18,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Scanner;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Илья on 06.07.2014.
@@ -25,13 +27,29 @@ import java.util.Scanner;
 public class FloralCompositionStAXBuilder extends AbstractFloralCompositionBuilder {
 
     private static final Logger LOG = Logger.getLogger(FloralCompositionStAXBuilder.class);
+    private static final Lock lock = new ReentrantLock();
+    private static FloralCompositionStAXBuilder instance;
     AbstractFlower currentFlower;
     AbstractFlowerPackaging currentFlowerPackaging;
     String tagContent = "";
     private XMLInputFactory factory;
 
-    public FloralCompositionStAXBuilder() {
+    private FloralCompositionStAXBuilder() {
         factory = XMLInputFactory.newInstance();
+    }
+
+    public static FloralCompositionStAXBuilder getInstance() throws DAOException {
+        if (null == instance) {
+            lock.lock();
+            try {
+                if (null == instance) {
+                    instance = new FloralCompositionStAXBuilder();
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
+        return instance;
     }
 
     @Override

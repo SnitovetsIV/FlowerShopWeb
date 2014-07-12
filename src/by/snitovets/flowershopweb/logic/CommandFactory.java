@@ -1,6 +1,5 @@
 package by.snitovets.flowershopweb.logic;
 
-import by.snitovets.flowershopweb.exception.CommandException;
 import by.snitovets.flowershopweb.logic.command.ChangeLanguageCommand;
 import by.snitovets.flowershopweb.logic.command.ICommand;
 import by.snitovets.flowershopweb.logic.command.NoCommand;
@@ -31,7 +30,7 @@ public class CommandFactory {
         return LazyRequestHelperHolder.singletonInstance;
     }
 
-    public ICommand getCommand(HttpServletRequest request) throws CommandException {
+    public ICommand getCommand(HttpServletRequest request) {
         String action = request.getParameter(PARAM_NAME_COMMAND);
         ICommand command = allCommands.get(action);
         if (null == command) {

@@ -7,27 +7,17 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><fmt:message key="labels.jsp.index.title" bundle="${bundleLabel}"/></title>
+    <title><fmt:message key="labels.jsp.show.title" bundle="${bundleLabel}"/></title>
 </head>
 <body>
 
-<h1><fmt:message key="labels.jsp.index.header" bundle="${bundleLabel}"/></h1>
-
-<form name="parserForm" action="controller" method="post">
-    <input type="hidden" name="command" value="showFloralComposition"/>
-    <button name="parser" value="SAX">
-        <fmt:message key="labels.jsp.index.label_sax" bundle="${bundleLabel}"/>
-    </button>
-    <br/>
-    <button name="parser" value="STAX">
-    <fmt:message key="labels.jsp.index.label_stax" bundle="${bundleLabel}"/>
-    </button>
-    <br/>
-    <button name="parser" value="DOM">
-        <fmt:message key="labels.jsp.index.label_dom" bundle="${bundleLabel}"/>
+<fmt:message key="labels.jsp.show.out" bundle="${bundleLabel}"/>
+<form name="returnForm" action="controller" method="post">
+    <input type="hidden" name="command" value="backFromShow"/>
+    <button name="return">
+        <fmt:message key="labels.jsp.show.return" bundle="${bundleLabel}"/>
     </button>
 </form>
-
 <hr/>
 <form name="changeLangForm" action="controller" method="post">
     <input type="hidden" name="command" value="changeLanguage"/>

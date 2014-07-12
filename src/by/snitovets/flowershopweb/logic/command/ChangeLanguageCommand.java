@@ -1,6 +1,6 @@
 package by.snitovets.flowershopweb.logic.command;
 
-import by.snitovets.flowershopweb.controller.Controller;
+import by.snitovets.flowershopweb.controller.FlowerShopController;
 import by.snitovets.flowershopweb.exception.CommandException;
 import by.snitovets.flowershopweb.logic.ConfigurationManager;
 import org.apache.log4j.Logger;
@@ -26,7 +26,7 @@ public class ChangeLanguageCommand implements ICommand {
         Locale locale = new Locale(language);
         session.setAttribute(PARAM_NAME_LOCALE, locale);
         LOG.info("Language changed to " + locale);
-        String page = (String) session.getAttribute(Controller.PARAM_NAME_PAGE);
+        String page = (String) session.getAttribute(FlowerShopController.PARAM_NAME_PAGE);
         if (null == page) {
             page = ConfigurationManager.getInstance().getProperty(ConfigurationManager.INDEX_PAGE_PATH);
         }

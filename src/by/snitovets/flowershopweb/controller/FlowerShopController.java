@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * Created by Илья on 01.07.2014.
  */
-public class Controller extends HttpServlet implements javax.servlet.Servlet {
+public class FlowerShopController extends HttpServlet implements javax.servlet.Servlet {
 
     public static final String PARAM_NAME_ERROR_MESSAGE = "errorMessage";
     public static final String PARAM_NAME_PAGE = "page";
@@ -28,7 +28,7 @@ public class Controller extends HttpServlet implements javax.servlet.Servlet {
         new DOMConfigurator().doConfigure("log4j.xml", LogManager.getLoggerRepository());
     }
 
-    private static final Logger LOG = Logger.getLogger(Controller.class);
+    private static final Logger LOG = Logger.getLogger(FlowerShopController.class);
 
     @Override
     protected void doGet(HttpServletRequest request,
@@ -44,16 +44,14 @@ public class Controller extends HttpServlet implements javax.servlet.Servlet {
 
     protected void processRequest(HttpServletRequest request,
                                   HttpServletResponse response) throws ServletException, IOException {
-        //new DOMConfigurator().doConfigure("log4j.xml", LogManager.getLoggerRepository());
         String page;
         HttpSession session = request.getSession();
         try {
             ICommand command = CommandFactory.getInstance().getCommand(request);
             page = command.execute(request, response);
-            //?
         } catch (CommandException e) {
             page = ConfigurationManager.getInstance().getProperty(ConfigurationManager.ERROR_PAGE_PATH);
-            LOG.error(e);
+            LOG.error("Command exception - " + e.getMessage());
         }
         session.setAttribute(PARAM_NAME_PAGE, page);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);

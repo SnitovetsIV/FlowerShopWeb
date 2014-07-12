@@ -21,28 +21,10 @@ public class XMLFloralCompositionDAO implements FloralCompositionDAO {
     private AbstractFloralCompositionBuilder builder;
 
     private XMLFloralCompositionDAO() throws DAOException {
-        builder = new FloralCompositionSAXBuilder();
-    }
-
-    private XMLFloralCompositionDAO(String parserType) throws DAOException {
-
+        builder = FloralCompositionDOMBuilder.getInstance();
     }
 
     public static XMLFloralCompositionDAO getInstance() throws DAOException {
-        if (null == instance) {
-            lock.lock();
-            try {
-                if (null == instance) {
-                    instance = new XMLFloralCompositionDAO();
-                }
-            } finally {
-                lock.unlock();
-            }
-        }
-        return instance;
-    }
-
-    public static XMLFloralCompositionDAO getInstance(String parserType) throws DAOException {
         if (null == instance) {
             lock.lock();
             try {
@@ -60,6 +42,28 @@ public class XMLFloralCompositionDAO implements FloralCompositionDAO {
         lock.lock();
         try {
             this.builder = builder;
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public void setBuilder(String typeParser) throws DAOException {
+        lock.lock();
+        try {
+            ParserType type = ParserType.valueOf(typeParser.toUpperCase().trim());
+            switch (type) {
+                case DOM:
+                    builder = FloralCompositionDOMBuilder.getInstance();
+                    break;
+                case STAX:
+                    builder = FloralCompositionStAXBuilder.getInstance();
+                    break;
+                case SAX:
+                    builder = FloralCompositionSAXBuilder.getInstance();
+                    break;
+                default:
+                    throw new DAOException("Wrong type of parser/");
+            }
         } finally {
             lock.unlock();
         }
@@ -88,7 +92,7 @@ public class XMLFloralCompositionDAO implements FloralCompositionDAO {
 
     public enum ParserType {
         SAX,
-        StAX,
+        STAX,
         DOM
     }
 }
