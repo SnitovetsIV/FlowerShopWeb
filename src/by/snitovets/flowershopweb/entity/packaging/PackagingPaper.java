@@ -42,11 +42,8 @@ public class PackagingPaper extends AbstractFlowerPackaging {
 
         PackagingPaper other = (PackagingPaper) o;
 
-        if (length != other.length) {
-            return false;
-        }
+        return length == other.length;
 
-        return true;
     }
 
     @Override
@@ -58,8 +55,8 @@ public class PackagingPaper extends AbstractFlowerPackaging {
 
     @Override
     public String toString() {
-        return "PackagingPaper{" +
+        return "PackagingPaper{" + super.toString() +
                 "length=" + length +
-                "} " + super.toString();
+                "} ";
     }
 }

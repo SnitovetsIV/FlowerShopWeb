@@ -48,9 +48,9 @@ public class FloralCompositionSAXBuilder extends AbstractFloralCompositionBuilde
         try {
             reader.parse(fileName);
         } catch (SAXException e) {
-            throw new DAOException("Parsing failure. ", e);
+            throw new DAOException("Parsing failure. " + e.getMessage(), e);
         } catch (IOException e) {
-            throw new DAOException("File or I/O error. ", e);
+            throw new DAOException("File or I/O error. " + e.getMessage(), e);
         }
         floralComposition = floralCompositionHandler.getFloralComposition();
     }

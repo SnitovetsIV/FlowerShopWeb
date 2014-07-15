@@ -1,8 +1,6 @@
 package by.snitovets.flowershopweb.controller;
 
-import by.snitovets.flowershopweb.exception.CommandException;
 import by.snitovets.flowershopweb.logic.CommandFactory;
-import by.snitovets.flowershopweb.logic.ConfigurationManager;
 import by.snitovets.flowershopweb.logic.command.ICommand;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -19,7 +17,7 @@ import java.io.IOException;
 /**
  * Created by Илья on 01.07.2014.
  */
-public class FlowerShopController extends HttpServlet implements javax.servlet.Servlet {
+public class FlowerShopController extends HttpServlet {
 
     public static final String PARAM_NAME_ERROR_MESSAGE = "errorMessage";
     public static final String PARAM_NAME_PAGE = "page";
@@ -46,13 +44,8 @@ public class FlowerShopController extends HttpServlet implements javax.servlet.S
                                   HttpServletResponse response) throws ServletException, IOException {
         String page;
         HttpSession session = request.getSession();
-        try {
-            ICommand command = CommandFactory.getInstance().getCommand(request);
-            page = command.execute(request, response);
-        } catch (CommandException e) {
-            page = ConfigurationManager.getInstance().getProperty(ConfigurationManager.ERROR_PAGE_PATH);
-            LOG.error("Command exception - " + e.getMessage());
-        }
+        ICommand command = CommandFactory.getInstance().getCommand(request);
+        page = command.execute(request);
         session.setAttribute(PARAM_NAME_PAGE, page);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
         dispatcher.forward(request, response);

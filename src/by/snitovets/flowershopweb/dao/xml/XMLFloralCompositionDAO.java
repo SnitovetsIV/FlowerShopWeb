@@ -50,19 +50,18 @@ public class XMLFloralCompositionDAO implements FloralCompositionDAO {
     public void setBuilder(String typeParser) throws DAOException {
         lock.lock();
         try {
-            ParserType type = ParserType.valueOf(typeParser.toUpperCase().trim());
-            switch (type) {
-                case DOM:
+            switch (typeParser.toUpperCase().trim()) {
+                case "DOM":
                     builder = FloralCompositionDOMBuilder.getInstance();
                     break;
-                case STAX:
+                case "STAX":
                     builder = FloralCompositionStAXBuilder.getInstance();
                     break;
-                case SAX:
+                case "SAX":
                     builder = FloralCompositionSAXBuilder.getInstance();
                     break;
                 default:
-                    throw new DAOException("Wrong type of parser/");
+                    throw new DAOException("Wrong type of parser.");
             }
         } finally {
             lock.unlock();
@@ -76,9 +75,7 @@ public class XMLFloralCompositionDAO implements FloralCompositionDAO {
         try {
             String pathXML = ConfigurationManager.getInstance().getProperty(ConfigurationManager.XML_FILE_PATH);
             String pathXSD = ConfigurationManager.getInstance().getProperty(ConfigurationManager.XSD_FILE_PATH);
-            if (!XMLValidator.validateXMLbyXSD(pathXML, pathXSD)) {
-                LOG.error(pathXML + " is invalid by " + pathXSD);
-            } else {
+            if (XMLValidator.validateXMLbyXSD(pathXML, pathXSD)) {
                 builder.buildFloralComposition(pathXML);
                 floralComposition = builder.getFloralComposition();
             }
@@ -88,11 +85,5 @@ public class XMLFloralCompositionDAO implements FloralCompositionDAO {
             lock.unlock();
         }
         return floralComposition;
-    }
-
-    public enum ParserType {
-        SAX,
-        STAX,
-        DOM
     }
 }

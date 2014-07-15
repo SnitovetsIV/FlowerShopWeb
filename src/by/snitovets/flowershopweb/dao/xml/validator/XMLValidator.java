@@ -33,7 +33,6 @@ public class XMLValidator {
             if (!errorHandler.isErrors()) {
                 result = true;
             }
-            LOG.info("Validation is ended.");
         } catch (SAXException e) {
             LOG.error("Validation " + pathXML + " is not valid because " + e.getMessage());
         } catch (IOException e) {

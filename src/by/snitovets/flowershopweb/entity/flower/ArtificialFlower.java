@@ -50,11 +50,8 @@ public class ArtificialFlower extends AbstractFlower {
 
         ArtificialFlower other = (ArtificialFlower) o;
 
-        if (material != null ? !material.equals(other.material) : other.material != null) {
-            return false;
-        }
+        return !(material != null ? !material.equals(other.material) : other.material != null);
 
-        return true;
     }
 
     @Override
@@ -66,6 +63,6 @@ public class ArtificialFlower extends AbstractFlower {
 
     @Override
     public String toString() {
-        return "ArtificialFlower{" + "material='" + material + '\'' + "} " + super.toString();
+        return "ArtificialFlower{" + super.toString() + "material='" + material + '\'' + "} ";
     }
 }

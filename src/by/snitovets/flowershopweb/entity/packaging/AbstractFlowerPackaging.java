@@ -32,6 +32,10 @@ public abstract class AbstractFlowerPackaging implements Serializable {
         }
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getMaterial() {
         return material;
     }
@@ -61,11 +65,8 @@ public abstract class AbstractFlowerPackaging implements Serializable {
         if (Double.compare(other.price, price) != 0) {
             return false;
         }
-        if (material != null ? !material.equals(other.material) : other.material != null) {
-            return false;
-        }
+        return !(material != null ? !material.equals(other.material) : other.material != null);
 
-        return true;
     }
 
     @Override

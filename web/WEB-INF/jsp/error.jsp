@@ -1,4 +1,4 @@
-<%@page language="java" contentType="text/html" pageEncoding="UTF-8" %>
+<%@page isErrorPage="true" language="java" contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <fmt:setLocale value="${locale}"/>

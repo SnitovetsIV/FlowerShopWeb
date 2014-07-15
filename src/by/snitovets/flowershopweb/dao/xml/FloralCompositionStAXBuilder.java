@@ -89,47 +89,47 @@ public class FloralCompositionStAXBuilder extends AbstractFloralCompositionBuild
     }
 
     private void startElement(XMLStreamReader reader) throws DAOException {
-        switch (TagConstants.valueOf(reader.getLocalName())) {
-            case ARTIFICIAL_FLOWER_TAG:
-                int id = getID(reader.getAttributeValue(null, TagConstants.ID_ATTRIBUTE.getValue()));
+        switch (reader.getLocalName()) {
+            case TagConstants.ARTIFICIAL_FLOWER_TAG:
+                int id = getID(reader.getAttributeValue(null, TagConstants.ID_ATTRIBUTE));
                 currentFlower = new ArtificialFlower(id);
                 floralComposition.addFlower(currentFlower);
                 break;
-            case NATURAL_FLOWER_TAG:
-                id = getID(reader.getAttributeValue(null, TagConstants.ID_ATTRIBUTE.getValue()));
+            case TagConstants.NATURAL_FLOWER_TAG:
+                id = getID(reader.getAttributeValue(null, TagConstants.ID_ATTRIBUTE));
                 currentFlower = new NaturalFlower(id);
                 floralComposition.addFlower(currentFlower);
                 break;
-            case CUT_FLOWER_TAG:
-                id = getID(reader.getAttributeValue(null, TagConstants.ID_ATTRIBUTE.getValue()));
+            case TagConstants.CUT_FLOWER_TAG:
+                id = getID(reader.getAttributeValue(null, TagConstants.ID_ATTRIBUTE));
                 currentFlower = new CutFlower(id);
                 floralComposition.addFlower(currentFlower);
                 break;
-            case FLOWER_BASKET_TAG:
-                id = getID(reader.getAttributeValue(null, TagConstants.ID_ATTRIBUTE.getValue()));
+            case TagConstants.FLOWER_BASKET_TAG:
+                id = getID(reader.getAttributeValue(null, TagConstants.ID_ATTRIBUTE));
                 currentFlowerPackaging = new FlowerBasket(id);
                 floralComposition.setFlowerPackaging(currentFlowerPackaging);
                 break;
-            case PACKAGING_PAPER_TAG:
-                id = getID(reader.getAttributeValue(null, TagConstants.ID_ATTRIBUTE.getValue()));
+            case TagConstants.PACKAGING_PAPER_TAG:
+                id = getID(reader.getAttributeValue(null, TagConstants.ID_ATTRIBUTE));
                 currentFlowerPackaging = new PackagingPaper(id);
                 floralComposition.setFlowerPackaging(currentFlowerPackaging);
                 break;
-            default:
-                throw new DAOException("Bad start element.");
+            case TagConstants.FLOWER_COMPOSITION_TAG:
+                break;
         }
     }
 
     private void endElement(XMLStreamReader reader) throws DAOException {
-        switch (TagConstants.valueOf(reader.getLocalName())) {
-            case PRICE_TAG:
+        switch (reader.getLocalName()) {
+            case TagConstants.PRICE_TAG:
                 if (currentFlower != null) {
                     currentFlower.setPrice(Double.parseDouble(tagContent));
                 } else if (currentFlowerPackaging != null) {
                     currentFlowerPackaging.setPrice(Double.parseDouble(tagContent));
                 }
                 break;
-            case COLOR_TAG:
+            case TagConstants.COLOR_TAG:
                 try {
                     Field field = Color.class.getField(tagContent);
                     Color color = (Color) field.get(null);
@@ -140,33 +140,33 @@ public class FloralCompositionStAXBuilder extends AbstractFloralCompositionBuild
                     LOG.warn("NoSuchFieldException." + e.getMessage());
                 }
                 break;
-            case STEM_LENGTH_TAG:
+            case TagConstants.STEM_LENGTH_TAG:
                 currentFlower.setStemLength(Integer.parseInt(tagContent));
                 break;
-            case REPRODUCTION_TAG:
+            case TagConstants.REPRODUCTION_TAG:
                 ((NaturalFlower) currentFlower).setReproductionType(ReproductionType.valueOf(tagContent.toUpperCase()));
                 break;
-            case STORAGE_TIME_TAG:
+            case TagConstants.STORAGE_TIME_TAG:
                 ((CutFlower) currentFlower).setStorageTime(Integer.parseInt(tagContent));
                 break;
-            case MATERIAL_TAG:
+            case TagConstants.MATERIAL_TAG:
                 if (currentFlower != null) {
                     ((ArtificialFlower) currentFlower).setMaterial(tagContent);
                 } else if (currentFlowerPackaging != null) {
                     currentFlowerPackaging.setMaterial(tagContent);
                 }
                 break;
-            case HEIGHT_TAG:
+            case TagConstants.HEIGHT_TAG:
                 ((FlowerBasket) currentFlowerPackaging).setHeight(Integer.parseInt(tagContent));
                 break;
-            case DIAMETER_TAG:
+            case TagConstants.DIAMETER_TAG:
                 ((FlowerBasket) currentFlowerPackaging).setDiameter(Integer.parseInt(tagContent));
                 break;
-            case LENGTH_TAG:
+            case TagConstants.LENGTH_TAG:
                 ((PackagingPaper) currentFlowerPackaging).setLength(Integer.parseInt(tagContent));
                 break;
-            default:
-                throw new DAOException("Bad tag element.");
+            case TagConstants.FLOWER_COMPOSITION_TAG:
+                break;
         }
     }
 

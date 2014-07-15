@@ -65,8 +65,8 @@ public class CutFlower extends NaturalFlower {
 
     @Override
     public String toString() {
-        return "CutFlower{" +
+        return "CutFlower{" + super.toString() +
                 "storageTime=" + storageTime +
-                "} " + super.toString();
+                "} ";
     }
 }

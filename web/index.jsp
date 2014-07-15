@@ -1,5 +1,6 @@
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="resources.labels" var="bundleLabel" scope="session"/>
@@ -20,14 +21,18 @@
     </button>
     <br/>
     <button name="parser" value="STAX">
-    <fmt:message key="labels.jsp.index.label_stax" bundle="${bundleLabel}"/>
+        <fmt:message key="labels.jsp.index.label_stax" bundle="${bundleLabel}"/>
     </button>
     <br/>
     <button name="parser" value="DOM">
         <fmt:message key="labels.jsp.index.label_dom" bundle="${bundleLabel}"/>
     </button>
+    <br/>
+    <button name="parser" value="BADPARSER">
+        BAD PARSER
+    </button>
 </form>
-
+<p style="color:#ff0000">${warning}</p>
 <hr/>
 <form name="changeLangForm" action="controller" method="post">
     <input type="hidden" name="command" value="changeLanguage"/>

@@ -7,7 +7,6 @@ import by.snitovets.flowershopweb.logic.ConfigurationManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -17,10 +16,11 @@ public class ShowFlowerCompositionCommand implements ICommand {
 
     public static final String PARAM_NAME_PARSER = "parser";
     public static final String PARAM_NAME_FLORAL_COMPOSITION = "floralComposition";
+    public static final String PARAM_NAME_WARNING = "warning";
     private static final Logger LOG = Logger.getLogger(ShowFlowerCompositionCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request) {
         String page = null;
         try {
             String typeParser = request.getParameter(PARAM_NAME_PARSER);
@@ -28,12 +28,19 @@ public class ShowFlowerCompositionCommand implements ICommand {
             XMLFloralCompositionDAO dao = XMLFloralCompositionDAO.getInstance();
             dao.setBuilder(typeParser);
             FloralComposition floralComposition = dao.getFloralComposition();
-            page = ConfigurationManager.getInstance().getProperty(ConfigurationManager.SHOW_PAGE_PATH);
-            HttpSession session = request.getSession();
-            session.setAttribute(PARAM_NAME_FLORAL_COMPOSITION, floralComposition);
+            if (floralComposition == null) {
+                page = ConfigurationManager.getInstance().getProperty(ConfigurationManager.INDEX_PAGE_PATH);
+                request.setAttribute(PARAM_NAME_WARNING, "XML is not validate by XSD!");
+            } else {
+                page = ConfigurationManager.getInstance().getProperty(ConfigurationManager.SHOW_PAGE_PATH);
+                HttpSession session = request.getSession();
+                session.setAttribute(PARAM_NAME_FLORAL_COMPOSITION, floralComposition);
+                session.setAttribute(PARAM_NAME_PARSER, typeParser);
+            }
         } catch (DAOException e) {
             LOG.error(e.getMessage());
-            page = ConfigurationManager.getInstance().getProperty(ConfigurationManager.ERROR_PAGE_PATH);
+            request.setAttribute(PARAM_NAME_WARNING, e.getMessage());
+            page = ConfigurationManager.getInstance().getProperty(ConfigurationManager.INDEX_PAGE_PATH);
         }
 
         return page;

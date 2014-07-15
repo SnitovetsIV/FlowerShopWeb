@@ -58,11 +58,8 @@ public class FlowerBasket extends AbstractFlowerPackaging {
         if (Double.compare(other.diameter, diameter) != 0) {
             return false;
         }
-        if (height != other.height) {
-            return false;
-        }
+        return height == other.height;
 
-        return true;
     }
 
     @Override
@@ -78,9 +75,9 @@ public class FlowerBasket extends AbstractFlowerPackaging {
 
     @Override
     public String toString() {
-        return "FlowerBasket{" +
+        return "FlowerBasket{" + super.toString() +
                 "height=" + height +
                 ", diameter=" + diameter +
-                "} " + super.toString();
+                "} ";
     }
 }

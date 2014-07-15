@@ -63,8 +63,8 @@ public class NaturalFlower extends AbstractFlower {
 
     @Override
     public String toString() {
-        return "NaturalFlower{" +
+        return "NaturalFlower{" + super.toString() +
                 "typeOfReproduction=" + reproductionType +
-                "} " + super.toString();
+                "} ";
     }
 }

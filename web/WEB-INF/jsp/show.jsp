@@ -1,5 +1,6 @@
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="/WEB-INF/tld/showtag" prefix="tag" %>
 <!DOCTYPE html>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="resources.labels" var="bundleLabel" scope="session"/>
@@ -10,8 +11,20 @@
     <title><fmt:message key="labels.jsp.show.title" bundle="${bundleLabel}"/></title>
 </head>
 <body>
-
-<fmt:message key="labels.jsp.show.out" bundle="${bundleLabel}"/>
+<table style="text-align:center" border="1">
+    <thead>
+    <tr>
+        <td> ${parser} </td>
+    </tr>
+    <tr>
+        <th><fmt:message key="labels.jsp.show.column.type" bundle="${bundleLabel}"/></th>
+        <th><fmt:message key="labels.jsp.show.column.id" bundle="${bundleLabel}"/></th>
+        <th><fmt:message key="labels.jsp.show.column.price" bundle="${bundleLabel}"/></th>
+        <th><fmt:message key="labels.jsp.show.column.characteristics" bundle="${bundleLabel}"/></th>
+    </tr>
+    </thead>
+    <tag:showxml/>
+</table>
 <form name="returnForm" action="controller" method="post">
     <input type="hidden" name="command" value="backFromShow"/>
     <button name="return">
