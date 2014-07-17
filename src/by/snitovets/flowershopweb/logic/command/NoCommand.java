@@ -16,7 +16,6 @@ public class NoCommand implements ICommand {
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        //String page = (String) session.getAttribute(FlowerShopController.PARAM_NAME_PAGE);
         String page = ConfigurationManager.getInstance().getProperty(ConfigurationManager.INDEX_PAGE_PATH);
         LOG.debug("No command: page = " + page);
         return page;

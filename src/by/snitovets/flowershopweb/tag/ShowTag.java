@@ -8,7 +8,7 @@ import by.snitovets.flowershopweb.entity.flower.NaturalFlower;
 import by.snitovets.flowershopweb.entity.packaging.AbstractFlowerPackaging;
 import by.snitovets.flowershopweb.entity.packaging.FlowerBasket;
 import by.snitovets.flowershopweb.entity.packaging.PackagingPaper;
-import by.snitovets.flowershopweb.logic.command.ShowFlowerCompositionCommand;
+import by.snitovets.flowershopweb.util.Constants;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpSession;
@@ -30,7 +30,7 @@ public class ShowTag extends TagSupport {
         try {
             JspWriter out = pageContext.getOut();
             HttpSession session = pageContext.getSession();
-            FloralComposition floralComposition = (FloralComposition) session.getAttribute(ShowFlowerCompositionCommand.PARAM_NAME_FLORAL_COMPOSITION);
+            FloralComposition floralComposition = (FloralComposition) session.getAttribute(Constants.PARAM_NAME_FLORAL_COMPOSITION);
             Iterator<AbstractFlower> iterator = floralComposition.iterator();
             while (iterator.hasNext()) {
                 AbstractFlower flower = iterator.next();
