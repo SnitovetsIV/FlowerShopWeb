@@ -27,7 +27,7 @@ public class CommandFactory {
     }
 
     public static CommandFactory getInstance() {
-        return LazyRequestHelperHolder.singletonInstance;
+        return LazyHolder.singletonInstance;
     }
 
     public ICommand getCommand(HttpServletRequest request) {
@@ -39,7 +39,7 @@ public class CommandFactory {
         return command;
     }
 
-    private static class LazyRequestHelperHolder {
+    private static class LazyHolder {
         public static CommandFactory singletonInstance = new CommandFactory();
     }
 
